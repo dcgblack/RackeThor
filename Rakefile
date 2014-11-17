@@ -1,25 +1,18 @@
-# $Id$
+require 'rake/testtask'
 
-task :default => [:test, :docs, :build]
+namespace :test do
+  Rake::TestTask.new(:functional) do |t|
+    t.test_files = FileList['tests/functional/**/test*.rb']
+    t.verbose = true
+  end
 
-task :build do
-  sh %{gem build racket.gemspec}
-end
-
-task :doc => [:docs]
-
-task :docs do
-  sh %{test -d doc || mkdir doc}
-  sh %{find doc -type f -a ! -wholename \*.svn/\* -print |xargs /bin/rm -f}
-  sh %{date -d "Jan 1 1970" > doc/created.rid}
-  sh %{rdoc -A rest,octets,hex_octets,unsigned,signed,text -p -o doc -q -f html -m README -W http://spoofed.org/files/racket/src/%s -S lib/* README}
-end
-
-task :install do
-  sh %{sudo gem install racket.gem}
-end
-
-task :test do
-  sh %{cd test && ruby ts_all.rb}
-  #ruby "test/ts_all.rb"
+  Rake::TestTask.new(:units) do |t|
+    t.test_files = FileList['tests/units/test*.rb']
+    t.verbose = true
+  end
+  
+  Rake::TestTask.new(:all) do |t|
+    t.test_files = FileList['tests/**/test*.rb']
+    t.verbose = true
+  end
 end
