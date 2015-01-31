@@ -7,12 +7,13 @@ namespace :test do
   end
 
   Rake::TestTask.new(:units) do |t|
-    t.test_files = FileList['tests/units/test*.rb']
+    t.test_files = FileList['tests/units/test*.rb', 
+      'tests/units/racket/test*.rb', 'tests/units/racket/**/test*.rb']
     t.verbose = true
   end
   
   Rake::TestTask.new(:all) do |t|
-    t.test_files = FileList['tests/**/test*.rb']
-    t.verbose = true
+    Rake::Task["functional"].execute
+    Rake::Task["units"].execute
   end
 end
