@@ -1,6 +1,7 @@
 require 'rake/testtask'
 
 namespace :test do
+  
   Rake::TestTask.new(:functional) do |t|
     t.test_files = FileList['tests/functional/**/test*.rb']
     t.verbose = true
@@ -12,8 +13,8 @@ namespace :test do
     t.verbose = true
   end
   
-  Rake::TestTask.new(:all) do |t|
-    Rake::Task["functional"].execute
-    Rake::Task["units"].execute
+  task :all do 
+    Rake::Task["test:functional"].execute
+    Rake::Task["test:units"].execute
   end
 end
