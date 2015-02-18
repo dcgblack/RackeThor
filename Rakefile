@@ -10,7 +10,7 @@ namespace :test do
     t.test_files = FileList['tests/units/**/test*.rb']
     t.verbose = true
   end
-  
+
   Rake::TestTask.new(:all) do |t|
     t.test_files = FileList['tests/**/test*.rb']
     t.verbose = true
