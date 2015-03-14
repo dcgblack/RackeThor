@@ -30,6 +30,25 @@ module L2
 # Ethernet II (DIX v2.0)
 #
 # http://en.wikipedia.org/wiki/Ethernet_II_framing
+# ==== +802.3 Ethernet+
+# Should always be followed by an LLC(Logical Link Control) header.
+# 
+# 	A data packet on an Ethernet link is called an Ethernet packet, which 
+# 	transports an Ethernet frame as payload.
+# 	
+# 	The 802.3 packet header looks usualy looks like:
+# 	| Preamble | Dest Addr | Src Addr | Type | Payload  | FCS |
+# 	|    8B    |     6B    |    6B    |  2B  | 46-1500B | 4B  |
+# 
+# 	==== Ether Type - Type
+# 	Values of 1500 (0x05DC) and below for this field indicate that the field 
+# 	is used +as the size of the payload of the Ethernet Frame+ while values of 
+# 	1536 and above indicate that the field is used to represent EtherType.
+# 	The interpretation of values 1501–1535, inclusive, is undefined.
+# 	
+# 	Thus the 802.3 would be used instead of Ethernet II only when the type is
+# 	lower than 1501.
+# 	
 class Ethernet < RacketPart
   ETHERTYPE_IPV4 = 0x0800
   ETHERTYPE_ARP = 0x0806

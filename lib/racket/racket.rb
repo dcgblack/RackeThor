@@ -34,7 +34,14 @@ require 'racket/l3'
 require 'racket/l4'
 require 'racket/l5'
 
+#
+# Principal module, raise the racket
+#
 module Racket
+
+#
+# This class is responsible for centralize everything
+#
 class Racket
 
   attr_accessor :iface, :mtu, :timeout
@@ -47,7 +54,12 @@ class Racket
   rescue ::LoadError
   end
 
-
+  # Initialize method for the racket program, starts everything
+  #
+  # ==== Attributes
+  #
+  # * +payload+ - Starts with a empty string
+  #
   def initialize(payload="")
     @layers = []
     @mtu = 1500
