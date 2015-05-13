@@ -8,6 +8,8 @@ group :test do
   gem "minitest"
   gem "mocha"
   gem "simplecov"
+  gem "rubocop"
+  gem "flay"
 end
 
 
